@@ -1,4 +1,4 @@
-
+# INNER JOIN
 
 SELECT booking.id AS booking_id, users.username
 FROM booking
@@ -6,6 +6,7 @@ INNER JOIN users
 ON booking.user_id = users.id;
 
 
+# LEFT JOIN
 
 SELECT 
 properties.id AS property_id,
@@ -16,7 +17,10 @@ reviews.rating
 FROM properties
 LEFT JOIN reviews
 ON properties.id = reviews.property_id;
+ORDER BY 
+property_id;
 
+# FULL OUTER JOIN
 
 SELECT
 users.id AS user_id,
