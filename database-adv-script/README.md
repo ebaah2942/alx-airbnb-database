@@ -42,3 +42,33 @@ Users without bookings
 Bookings without a user (orphaned rows)
 
 Fully matched records
+
+
+SELECT * 
+FROM properties 
+WHERE id IN (
+    SELECT property_id 
+    FROM reviews 
+    GROUP BY property_id 
+    HAVING AVG(rating) > 4.0
+);
+🔍 Explanation:
+The subquery finds all property_ids where the average review rating is greater than 4.0.
+
+The main query fetches those full property records.
+
+
+
+SELECT * 
+FROM users u
+WHERE (
+    SELECT COUNT(*) 
+    FROM bookings b 
+    WHERE b.user_id = u.id
+) > 3;
+🔍 Explanation:
+This is a correlated subquery, meaning it runs once per row in the outer query.
+
+For each user , it counts how many bookings they’ve made.
+
+Only includes users with more than 3 bookings.
