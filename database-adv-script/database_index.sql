@@ -11,3 +11,30 @@ CREATE INDEX idx_bookings_check_in_date ON bookings(check_in_date);
 CREATE INDEX idx_properties_id ON properties(id);
 CREATE INDEX idx_properties_title ON properties(title);
 CREATE INDEX idx_properties_price ON properties(price_per_night);
+
+🔎 Before Indexing
+
+EXPLAIN ANALYZE
+SELECT * 
+FROM bookings 
+WHERE user_id = 5 
+ORDER BY check_in_date DESC;
+
+Expect higher cost, sequential scan, slower time.
+
+
+✅ After Adding Indexes
+
+EXPLAIN ANALYZE
+SELECT * 
+FROM bookings 
+WHERE user_id = 5 
+ORDER BY check_in_date DESC;
+
+You should now see:
+
+Index Scan instead of Seq Scan
+
+Lower cost
+
+Improved execution time
