@@ -19,10 +19,13 @@ SELECT * FROM bookings
 WHERE check_in_date BETWEEN '2024-07-01' AND '2024-07-31';
 Results:
 
-Metric	        Before Partitioning	    After Partitioning
-Execution Plan	Full Table Scan	Single   Partition Scan
-Rows Scanned	Entire table	         Only 1 partition
-Execution Time (example)	~120ms	     ~25ms
+### 📊 Partitioning Performance Comparison
+
+| Metric                   | Before Partitioning | After Partitioning     |
+|--------------------------|---------------------|-------------------------|
+| Execution Plan           | Full Table Scan     | Single Partition Scan   |
+| Rows Scanned             | Entire table        | Only 1 partition        |
+| Execution Time (example) | ~120ms              | ~25ms                   |
 
 Conclusion:
 Partitioning significantly reduced the number of rows scanned and improved the speed of queries filtered by check_in_date. This is especially effective for time-based queries on large datasets.
