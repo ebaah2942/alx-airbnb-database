@@ -72,3 +72,50 @@ This is a correlated subquery, meaning it runs once per row in the outer query.
 For each user , it counts how many bookings they’ve made.
 
 Only includes users with more than 3 bookings.
+
+
+📊 Advanced SQL Analytics
+This section showcases SQL queries that help derive insights from the data in the Airbnb Clone Project using aggregation and window functions.
+
+🧮 Total Number of Bookings per User
+Query:
+
+sql
+Copy
+Edit
+SELECT 
+  users.id AS user_id,
+  users.username,
+  COUNT(bookings.id) AS total_bookings
+FROM 
+  users
+JOIN 
+  bookings ON users.id = bookings.user_id
+GROUP BY 
+  users.id, users.username
+ORDER BY 
+  total_bookings DESC;
+Purpose:
+Counts how many bookings each user has made.
+
+🏆 Ranking Properties by Booking Count
+Query:
+
+sql
+Copy
+Edit
+SELECT 
+  p.id AS property_id,
+  p.title,
+  COUNT(b.id) AS total_bookings,
+  RANK() OVER (ORDER BY COUNT(b.id) DESC) AS rank
+FROM 
+  properties p
+LEFT JOIN 
+  bookings b ON p.id = b.property_id
+GROUP BY 
+  p.id, p.title
+ORDER BY 
+  rank;
+Purpose:
+Ranks properties by the number of times they’ve been booked.
